@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema[7.1].define(version: 2023_10_10_054508) do
   create_table "books", charset: "utf8mb4", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title"
     t.string "author"
     t.text "description"
     t.integer "reading_status"

@@ -1,14 +1,89 @@
-<h1> List Of Books Available</h1>
+<div class = "container " style= "background-color:amber">
+    <%= flash[:notice]%>
+</div>
 
-<% Book.all.each do |book|%>
-________________________________________________________
-********************************************************
-<p>Title:<%= book.title %></p>
-<p>Author:<%= book.author %></p>
-<p>Description:<%= book.description %></p>
-<p>Reading Status:<%= book.reading_status %></p>
-<p>Title:<%= book.title %></p>
-________________________________________________________
-________________________________________________________
+<h1>Book List</h1>
 
-<% end %>
+
+<div >
+  <div class="card" >
+    <div class="card-body">
+      
+  
+      <!-- Flex container for button and table rows -->
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <!-- Add New Button -->
+        <%= button_to "New Book", books_new_path, method: :get, class: "btn btn-primary"%>
+      </div>
+      <!-- Table with increased length and border-radius -->
+      <div class="table-responsive">
+        <table class="table table table-hover table-bordered rounded">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Description</th>
+              <th>Reading Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @books.each do |book| %>
+              <tr>
+                <td><%= book.title %></td>
+                <td><%= book.author %></td>
+                <td><%= book.description %></td>
+                <td><%= book.reading_status %></td>
+                <td>
+                  <!-- View Button with Font Awesome icon -->
+                <!-- View Button with Font Awesome icon -->
+                <button class="btn btn-info btn-icon" data-toggle="modal" data-target="#viewBookModal<%= book.id %>">
+                    <i class="bi bi-eye-fill"></i>                    
+                </button>
+                
+                <!-- Edit Button with Font Awesome icon -->
+                <button class="btn btn-warning btn-icon" data-toggle="modal" data-target="#editBookModal<%= book.id %>">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+                
+                <!-- Delete Button with Font Awesome icon -->
+                <button class="btn btn-danger btn-icon" data-toggle="modal" data-target="#deleteBookModal<%= book.id %>">
+                    <i class="bi bi-trash3"></i>
+                </button>
+
+                
+                </td>
+              </tr>
+            <% end %>
+          </tbody>          
+        </table>
+
+        <%= paginate @books %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals for Add, View, Edit, and Delete -->
+  <!-- Add Book Modal -->
+  <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel" aria-hidden="true">
+    <!-- Add your modal HTML for adding a new book here -->
+  </div>
+
+  <!-- View, Edit, and Delete Modals for each book -->
+  <% Book.all.each do |book| %>
+    <!-- View Book Modal -->
+    <div class="modal fade" id="viewBookModal<%= book.id %>" tabindex="-1" role="dialog" aria-labelledby="viewBookModalLabel<%= book.id %>" aria-hidden="true">
+      <!-- Add your modal HTML for viewing the book here -->
+    </div>
+
+    <!-- Edit Book Modal -->
+    <div class="modal fade" id="editBookModal<%= book.id %>" tabindex="-1" role="dialog" aria-labelledby="editBookModalLabel<%= book.id %>" aria-hidden="true">
+      <!-- Add your modal HTML for editing the book here -->
+    </div>
+
+    <!-- Delete Book Modal -->
+    <div class="modal fade" id="deleteBookModal<%= book.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteBookModalLabel<%= book.id %>" aria-hidden="true">
+      <!-- Add your modal HTML for deleting the book here -->
+    </div>
+  <% end %>
+</div>

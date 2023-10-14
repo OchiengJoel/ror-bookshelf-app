@@ -1,0 +1,37 @@
+<h1>Add New Book</h1>
+
+<%= link_to "Back To List", books_path, class: "btn btn-primary" %>
+
+<%= form_with model: @book, url: books_new_path do |form|%>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="mb-3">
+      <%= form.label :title %>
+      <%= form.text_field :title, class: "form-control", placeholder: "An Enemy Of The People" %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="mb-3">
+      <%= form.label :author %>
+      <%= form.text_field :author, class: "form-control", placeholder: "Tugee Leo" %>
+    </div>
+  </div>
+</div>
+
+<div class="mb-3">
+  <%= form.label :description %>
+  <%= form.text_area :description, class: "form-control", placeholder: "" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :reading_status %>
+  <%= form.select :reading_status, options_for_select(Book.reading_statuses.keys.map { |status| [status.humanize, status] }, class: "form-select form-select-lg mb-3" ) %>
+</div>
+
+<div class="mb-3">
+  <%= form.submit "Submit", class: "btn btn-primary", disable_with: 'Submitting...' %>
+</div>
+
+<% end %>

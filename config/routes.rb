@@ -10,5 +10,12 @@ Rails.application.routes.draw do
 
   root to: "main#index"
 
+  
+
   get "books", to: "books#index"
+  # get "books/:id", to: "books#show"
+  get "books/new", to: "books#new"
+  post "books/new", to: "books#create"
+  get "books/:id/edit", to: "books#edit", as : :edit_books
+  patch "books/:id" to: "books/update", as: :book
 end
